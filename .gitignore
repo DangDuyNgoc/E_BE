@@ -1,0 +1,5 @@
+# connect mongodb atlas
+# how to get SMTP_PASSWORD: 
+security -> search "app passwords" -> create 
+/node_modules
+.env
