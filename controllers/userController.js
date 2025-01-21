@@ -1,11 +1,12 @@
 import jwt from "jsonwebtoken";
-
-import { hashPassword, matchPassword } from "../helpers/authHelper.js";
-import userModel from "../models/userModel.js";
 import ejs from "ejs";
 import path from "path";
 import { fileURLToPath } from "url";
+
 import { sendMail } from "../config/sendMail.js";
+import { sendToken } from "./../config/jwt.js";
+import { hashPassword, matchPassword } from "../helpers/authHelper.js";
+import userModel from "../models/userModel.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -44,21 +45,14 @@ export const registrationUser = async (req, res) => {
       });
     }
 
-    const hash = await hashPassword(password);
-
     const user = new userModel({
       name,
       email,
-      password: hash,
+      password,
     });
 
-    const { token, activationCode } = await createToken({
-      id: user._id,
-      email,
-    });
-
-    // const token = await createToken(user);
-    // const activationCode = token.activationCode;
+    const token = await createToken(user);
+    const activationCode = token.activationCode;
 
     const data = { user: { name: user.name }, activationCode };
 
@@ -136,6 +130,7 @@ export const activeUser = async (req, res) => {
   }
 };
 
+// login
 export const loginController = async (req, res) => {
   try {
     const { email, password } = req.body;
@@ -164,16 +159,7 @@ export const loginController = async (req, res) => {
       });
     }
 
-    const { token, activationCode } = await createToken({
-      id: user._id,
-      email,
-    });
-
-    return res.status(200).send({
-      success: true,
-      message: "User logged in successfully",
-      token,
-    });
+    sendToken(user, 200, res);
   } catch (error) {
     console.log(error);
     return res.status(500).send({

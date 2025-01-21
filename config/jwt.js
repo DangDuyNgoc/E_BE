@@ -1,7 +1,7 @@
 import {
   signAccessToken,
   signRefreshToken,
-} from "../middlewares/authMiddleware";
+} from "../middlewares/authMiddleware.js";
 
 const accessTokenExpires = parseInt(
   process.env.ACCESS_TOKEN_EXPIRE || "300",
