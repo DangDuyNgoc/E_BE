@@ -7,6 +7,7 @@ import { sendMail } from "../config/sendMail.js";
 import { sendToken } from "./../config/jwt.js";
 import { hashPassword, matchPassword } from "../helpers/authHelper.js";
 import userModel from "../models/userModel.js";
+import { getUserById } from "../services/userService.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -160,6 +161,39 @@ export const loginController = async (req, res) => {
     }
 
     sendToken(user, 200, res);
+  } catch (error) {
+    console.log(error);
+    return res.status(500).send({
+      success: false,
+      message: "Internal Server Error",
+    });
+  }
+};
+
+// logout
+export const logoutController = (req, res) => {
+  try {
+    res.cookie("access_token", "", { maxAge: 1 });
+    res.cookie("refresh_token", "", { maxAge: 1 });
+
+    return res.status(200).send({
+      success: true,
+      message: "Logged out successfully",
+    });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).send({
+      success: false,
+      message: "Internal Server Error",
+    });
+  }
+};
+
+// get user info
+export const getUserInfoController = async (req, res) => {
+  try {
+    const userId = req.user?._id;
+    await getUserById(userId, res);
   } catch (error) {
     console.log(error);
     return res.status(500).send({
