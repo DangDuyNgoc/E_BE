@@ -203,6 +203,72 @@ export const getUserInfoController = async (req, res) => {
   }
 };
 
+// get all user
+export const getAllUsers = async (req, res) => {
+  try {
+    const user = await userModel.find().sort({ createdAt: -1 });
+    return res.status(200).send({
+      success: true,
+      message: "All Users Retrieved Successfully",
+      users: user,
+    });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).send({
+      success: false,
+      message: "Internal Server Error",
+    });
+  }
+};
+
+// update user profile
+export const updateProfile = async (req, res) => {
+  try {
+    const { name, password } = req.body;
+    const userId = req.user?._id;
+    const user = await userModel.findById(userId);
+
+    if (!user) {
+      return res.status(400).send({
+        success: false,
+        message: "User not found",
+      });
+    }
+
+    if (name && user) {
+      user.name = name;
+    }
+
+    if (password) {
+      const isSamePassword = await matchPassword(password, user.password);
+
+      if (isSamePassword) {
+        return res.status(400).send({
+          success: false,
+          message: "Password cannot be the same as the current password",
+        });
+      }
+    }
+
+    const hash = await hashPassword(password);
+    user.password = hash;
+
+    await user.save();
+
+    return res.status(200).send({
+      success: true,
+      message: "Profile updated successfully",
+      user,
+    });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).send({
+      success: false,
+      message: "Internal Server Error",
+    });
+  }
+};
+
 const createToken = async (user) => {
   try {
     const activationCode = Math.floor(1000 + Math.random() * 9000).toString();
