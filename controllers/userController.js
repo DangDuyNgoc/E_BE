@@ -269,6 +269,76 @@ export const updateProfile = async (req, res) => {
   }
 };
 
+export const updateUserRole = async (req, res) => {
+  try {
+    const { email, role } = req.body;
+    const userId = req.user?._id;
+
+    const user = await userModel.findOne({ email });
+
+    if (!user) {
+      return res.status(400).send({
+        success: false,
+        message: "User not found",
+      });
+    }
+
+    const updatedUser = await userModel.findByIdAndUpdate(
+      userId,
+      { role },
+      { new: true }
+    );
+
+    if (!updatedUser) {
+      return res.status(404).send({
+        success: false,
+        message: "User not found or failed to update",
+      });
+    }
+
+    return res.status(200).send({
+      success: true,
+      message: "User role updated successfully",
+      user: updatedUser,
+    });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).send({
+      success: false,
+      message: "Failed to update user role",
+    });
+  }
+};
+
+// delete user
+export const deleteUser = async (req, res) => {
+  try {
+    const { userId } = req.params;
+
+    const user = await userModel.findById(userId);
+
+    if (!user) {
+      return res.status(400).send({
+        success: false,
+        message: "User not found",
+      });
+    }
+
+    await userModel.findByIdAndDelete(userId);
+
+    return res.status(200).send({
+      success: true,
+      message: "User deleted successfully",
+    });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).send({
+      success: false,
+      message: "Failed to update user role",
+    });
+  }
+};
+
 const createToken = async (user) => {
   try {
     const activationCode = Math.floor(1000 + Math.random() * 9000).toString();
