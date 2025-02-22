@@ -8,6 +8,7 @@ import cors from "cors";
 import connectDB from "./config/data.js";
 import userRoute from "./routes/userRoute.js";
 import productRoute from "./routes/productRoute.js";
+import categoryRoute from "./routes/categoryRoute.js";
 
 dotenv.config();
 
@@ -30,6 +31,7 @@ app.get("/", (req, res) => {
 
 app.use("/api/user", userRoute);
 app.use("/api/product", productRoute);
+app.use("/api/category", categoryRoute);
 
 const port = process.env.PORT || 8080;
 
