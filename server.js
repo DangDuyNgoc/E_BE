@@ -11,10 +11,10 @@ import connectDB from "./config/data.js";
 import userRoute from "./routes/userRoute.js";
 import productRoute from "./routes/productRoute.js";
 import categoryRoute from "./routes/categoryRoute.js";
+import bannerRoute from "./routes/bannerRoute.js";
+import cartRoute from "./routes/cartRoute.js";
 
 import path from "path";
-import commentRoute from "./routes/uploadRouter.js";
-import bannerRoute from "./routes/bannerRoute.js";
 
 dotenv.config();
 
@@ -44,8 +44,8 @@ app.get("/", (req, res) => {
 app.use("/api/user", userRoute);
 app.use("/api/product", productRoute);
 app.use("/api/category", categoryRoute);
-app.use("/api/comments", commentRoute);
 app.use("/api/banner", bannerRoute);
+app.use("/api/cart", cartRoute);
 
 // alow access to images path on server
 const __dirname = path.resolve();

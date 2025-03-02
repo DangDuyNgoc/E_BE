@@ -17,13 +17,26 @@ import {
   validateProductId,
   validateSearchProduct,
 } from "../validation/productValidation.js";
+import { isAdmin, isAuthenticated } from "../middlewares/authMiddleware.js";
 
 const productRoute = express.Router();
 
-productRoute.get("/all-products", getAllProductController);
-productRoute.get("/get-product/:id", getOneProductController);
+productRoute.get(
+  "/all-products",
+  isAuthenticated,
+  isAdmin,
+  getAllProductController
+);
+productRoute.get(
+  "/get-product/:id",
+  isAuthenticated,
+  isAdmin,
+  getOneProductController
+);
 productRoute.post(
   "/add-product",
+  isAuthenticated,
+  isAdmin,
   saveImage.single("imageUrl"),
   validateProduct,
   validateFileExistence,
@@ -32,13 +45,20 @@ productRoute.post(
 );
 productRoute.put(
   "/update-product/:id",
+  isAuthenticated,
+  isAdmin,
   validateProductId,
   saveImage.single("imageUrl"),
   validateProduct,
   handleValidationErrors,
   updateProductController
 );
-productRoute.delete("/delete-product/:id", deleteProductController);
+productRoute.delete(
+  "/delete-product/:id",
+  isAuthenticated,
+  isAdmin,
+  deleteProductController
+);
 productRoute.post(
   "/search-products",
   validateSearchProduct,

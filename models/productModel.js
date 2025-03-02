@@ -38,12 +38,14 @@ const productSchema = new mongoose.Schema(
     color: {
       type: String,
     },
-    rating: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "ratings",
-      },
-    ],
+    rating: {
+      type: Number,
+      default: 0,
+    },
+    purchased: {
+      type: Number,
+      default: 0,
+    },
     reviews: [
       {
         type: mongoose.Schema.Types.ObjectId,
