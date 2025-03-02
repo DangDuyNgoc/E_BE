@@ -11,6 +11,8 @@ import connectDB from "./config/data.js";
 import userRoute from "./routes/userRoute.js";
 import productRoute from "./routes/productRoute.js";
 import categoryRoute from "./routes/categoryRoute.js";
+
+import path from "path";
 import commentRoute from "./routes/uploadRouter.js";
 import bannerRoute from "./routes/bannerRoute.js";
 
@@ -44,6 +46,10 @@ app.use("/api/product", productRoute);
 app.use("/api/category", categoryRoute);
 app.use("/api/comments", commentRoute);
 app.use("/api/banner", bannerRoute);
+
+// alow access to images path on server
+const __dirname = path.resolve();
+app.use("/", express.static(path.join(__dirname, "assets/images")));
 
 const port = process.env.PORT || 8080;
 
