@@ -5,13 +5,24 @@ import dotenv from "dotenv";
 import bodyParser from "body-parser";
 import cookieParser from "cookie-parser";
 import cors from "cors";
+import { v2 as cloudinary } from "cloudinary";
+
 import connectDB from "./config/data.js";
 import userRoute from "./routes/userRoute.js";
 import productRoute from "./routes/productRoute.js";
 import categoryRoute from "./routes/categoryRoute.js";
+
 import path from "path";
+import commentRoute from "./routes/uploadRouter.js";
+import bannerRoute from "./routes/bannerRoute.js";
 
 dotenv.config();
+
+cloudinary.config({
+  cloud_name: process.env.CLOUD_NAME,
+  api_key: process.env.CLOUD_API_KEY,
+  api_secret: process.env.CLOUD_SECRET_KEY,
+});
 
 const app = express();
 
@@ -27,12 +38,14 @@ app.use(express.json());
 app.use(cookieParser());
 
 app.get("/", (req, res) => {
-  res.send("API Working");
+  res.send("Api Working");
 });
 
 app.use("/api/user", userRoute);
 app.use("/api/product", productRoute);
 app.use("/api/category", categoryRoute);
+app.use("/api/comments", commentRoute);
+app.use("/api/banner", bannerRoute);
 
 // alow access to images path on server
 const __dirname = path.resolve();

@@ -2,9 +2,9 @@ import mongoose from "mongoose";
 
 const reviewsSchema = new mongoose.Schema(
   {
-    review: {
+    comments: {
       type: String,
-      required: true,
+      required: true, 
     },
     product: {
       type: mongoose.Schema.Types.ObjectId,
@@ -16,6 +16,11 @@ const reviewsSchema = new mongoose.Schema(
       ref: "users",
       required: true,
     },
+    image: [
+      {
+        type: String,
+      },
+    ],
   },
   { timestamps: true }
 );
