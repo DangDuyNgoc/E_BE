@@ -24,6 +24,9 @@ const cartSchema = new mongoose.Schema(
         discountedPrice: {
           type: Number,
         },
+        color: {
+          type: String,
+        },
       },
     ],
     totalPrice: {
