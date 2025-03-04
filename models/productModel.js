@@ -52,10 +52,6 @@ const productSchema = new mongoose.Schema(
         ref: "reviews",
       },
     ],
-    numRatings: {
-      type: Number,
-      default: 0,
-    },
   },
   { timestamps: true }
 );

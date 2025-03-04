@@ -8,6 +8,7 @@ import cors from "cors";
 import { v2 as cloudinary } from "cloudinary";
 
 import connectDB from "./config/data.js";
+import orderRoute from "./routes/orderRoute.js";
 import userRoute from "./routes/userRoute.js";
 import productRoute from "./routes/productRoute.js";
 import categoryRoute from "./routes/categoryRoute.js";
@@ -46,6 +47,7 @@ app.use("/api/product", productRoute);
 app.use("/api/category", categoryRoute);
 app.use("/api/banner", bannerRoute);
 app.use("/api/cart", cartRoute);
+app.use("/api/orders", orderRoute);
 
 // alow access to images path on server
 const __dirname = path.resolve();

@@ -245,7 +245,7 @@ export const deleteCart = async (req, res) => {
   }
 };
 
-export const deleteAll = async (req, req) => {
+export const deleteAll = async (req, res) => {
   try {
     const { userId } = req.body;
 
