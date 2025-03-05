@@ -16,7 +16,7 @@ const orderDetailSchema = new mongoose.Schema(
       type: String,
     },
     quantity: {
-      type: String,
+      type: Number,
       required: true,
     },
     price: {
@@ -27,7 +27,7 @@ const orderDetailSchema = new mongoose.Schema(
       type: Number,
     },
   },
-  { timestamp: true }
+  { timestamps: true }
 );
 
 const orderDetailModel = mongoose.model("order_details", orderDetailSchema);

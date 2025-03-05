@@ -32,14 +32,12 @@ export const isAuthenticated = async (req, res, next) => {
       });
     }
 
-    console.log(decode);
-
     const user = await userModel.findById(decode.id);
 
     if (!user) {
       return res.status(403).send({
         success: false,
-        message: "User not found 2",
+        message: "User not found",
       });
     }
 

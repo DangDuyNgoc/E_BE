@@ -1,4 +1,5 @@
 import Stripe from "stripe";
+import mongoose from "mongoose";
 
 import orderModel from "./../models/orderModel.js";
 import orderDetailModel from "./../models/orderDetailSchema.js";
@@ -11,7 +12,7 @@ const stripe = new Stripe(
 export const placeOrder = async (req, res) => {
   try {
     const { data } = req.body;
-
+    
     // make payment intent with stripe
     const paymentIntent = await stripe.paymentIntents.create({
       amount: data.total_amount * 100,
@@ -58,6 +59,31 @@ export const placeOrder = async (req, res) => {
     });
   } catch (error) {
     console.error(error);
+    return res.status(500).send({
+      success: false,
+      message: "Internal Server Error",
+    });
+  }
+};
+
+export const getUserOrders = async (req, res) => {
+  try {
+    const userId = req.user._id;
+
+    console.log("req.user:", req.user);
+    console.log("User ID:", typeof userId);
+    console.log("User ID:", userId);
+
+    const orders = await orderModel.find({ user_id: req.user._id });
+
+    console.log("Orders found:", orders);
+
+    res.status(200).send({
+      success: true,
+      data: orders,
+    });
+  } catch (error) {
+    console.log(error);
     return res.status(500).send({
       success: false,
       message: "Internal Server Error",
