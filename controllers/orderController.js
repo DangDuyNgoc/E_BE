@@ -1,5 +1,4 @@
 import Stripe from "stripe";
-import mongoose from "mongoose";
 
 import orderModel from "./../models/orderModel.js";
 import orderDetailModel from "./../models/orderDetailSchema.js";
@@ -9,10 +8,11 @@ const stripe = new Stripe(
     "sk_test_51PiS7iDDtMfu9MHZQXprg6WPZzY3xm3almQOoZxiJChyPMq6om6rXvDn1oH7tqmYw0LrmB8z6dCqv33B9TIhWcQA00UufwYzk1"
 );
 
+
 export const placeOrder = async (req, res) => {
   try {
     const { data } = req.body;
-    
+
     // make payment intent with stripe
     const paymentIntent = await stripe.paymentIntents.create({
       amount: data.total_amount * 100,
@@ -70,13 +70,7 @@ export const getUserOrders = async (req, res) => {
   try {
     const userId = req.user._id;
 
-    console.log("req.user:", req.user);
-    console.log("User ID:", typeof userId);
-    console.log("User ID:", userId);
-
     const orders = await orderModel.find({ user_id: req.user._id });
-
-    console.log("Orders found:", orders);
 
     res.status(200).send({
       success: true,
