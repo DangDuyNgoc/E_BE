@@ -14,6 +14,7 @@ import productRoute from "./routes/productRoute.js";
 import categoryRoute from "./routes/categoryRoute.js";
 import bannerRoute from "./routes/bannerRoute.js";
 import cartRoute from "./routes/cartRoute.js";
+import reviewRoute from "./routes/reviewRoute.js";
 
 import path from "path";
 
@@ -48,6 +49,7 @@ app.use("/api/category", categoryRoute);
 app.use("/api/banner", bannerRoute);
 app.use("/api/cart", cartRoute);
 app.use("/api/orders", orderRoute);
+app.use("/api/review", reviewRoute);
 
 // alow access to images path on server
 const __dirname = path.resolve();
