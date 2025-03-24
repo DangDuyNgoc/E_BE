@@ -18,6 +18,7 @@ export const isAuthenticated = async (req, res, next) => {
     // const access_token = req.cookies.access_token;
     const access_token = req.headers.authorization.replace("Bearer ", "");
 
+
     if (!access_token) {
       return res.status(403).send({
         success: false,

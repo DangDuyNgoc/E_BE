@@ -23,12 +23,12 @@ const productRoute = express.Router();
 
 productRoute.get(
   "/all-products",
-  getAllProductController,
+  getAllProductController
 );
 
 productRoute.get(
   "/get-product/:id",
-  getOneProductController,
+  getOneProductController
 );
 
 productRoute.post(

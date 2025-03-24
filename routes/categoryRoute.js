@@ -27,12 +27,12 @@ categoryRoute.put(
 
 categoryRoute.get(
   "/get-category/:id",
-  getSingleCategory,
+  getSingleCategory
 );
 
 categoryRoute.get(
   "/get-all-category",
-  getAllCategory,
+  getAllCategory
 );
 
 categoryRoute.delete(

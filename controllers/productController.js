@@ -97,7 +97,6 @@ export const deleteProductController = async (req, res) => {
 
 export const searchProductController = async (req, res) => {
   const objData = req.body;
-  console.log(Object.keys(objData), objData);
   try {
     if (!objData || Object.keys(objData).length === 0) {
       return res
