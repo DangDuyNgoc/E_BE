@@ -27,15 +27,11 @@ categoryRoute.put(
 
 categoryRoute.get(
   "/get-category/:id",
-  isAuthenticated,
-  isAdmin,
   getSingleCategory
 );
 
 categoryRoute.get(
   "/get-all-category",
-  isAuthenticated,
-  isAdmin,
   getAllCategory
 );
 
