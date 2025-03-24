@@ -15,42 +15,38 @@ categoryRoute.post(
   "/create-category",
   isAuthenticated,
   isAdmin,
-  createCategory
+  createCategory,
 );
 
 categoryRoute.put(
   "/update-category/:id",
   isAuthenticated,
   isAdmin,
-  updateCategory
+  updateCategory,
 );
 
 categoryRoute.get(
   "/get-category/:id",
-  isAuthenticated,
-  isAdmin,
-  getSingleCategory
+  getSingleCategory,
 );
 
 categoryRoute.get(
   "/get-all-category",
-  isAuthenticated,
-  isAdmin,
-  getAllCategory
+  getAllCategory,
 );
 
 categoryRoute.delete(
   "/delete-category/:id",
   isAuthenticated,
   isAdmin,
-  deleteCategory
+  deleteCategory,
 );
 
 categoryRoute.delete(
   "/delete-all-category",
   isAuthenticated,
   isAdmin,
-  deleteAllCategory
+  deleteAllCategory,
 );
 
 export default categoryRoute;

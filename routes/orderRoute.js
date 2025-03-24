@@ -18,7 +18,7 @@ orderRoute.put(
   "/update-status-order/:id",
   isAuthenticated,
   isAdmin,
-  updateStatus
+  updateStatus,
 );
 
 export default orderRoute;

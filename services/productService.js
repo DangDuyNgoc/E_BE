@@ -60,7 +60,7 @@ export const updateProductService = async (id, data, newImageUrl) => {
     const updatedProduct = await productModel.findByIdAndUpdate(
       id,
       updatedData,
-      { new: true }
+      { new: true },
     );
     return updatedProduct;
   } catch (error) {
@@ -111,4 +111,3 @@ export const searchProductService = async (data) => {
     throw error;
   }
 };
-

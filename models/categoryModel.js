@@ -7,7 +7,7 @@ const categoriesSchema = new mongoose.Schema({
   },
   image: {
     type: String,
-  }
+  },
 });
 
 const categoriesModel = mongoose.model("categories", categoriesSchema);

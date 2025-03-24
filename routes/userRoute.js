@@ -9,6 +9,7 @@ import {
   updateProfile,
   updateUserRole,
   deleteUser,
+  refreshToken,
 } from "../controllers/userController.js";
 
 const userRoute = express.Router();
@@ -21,5 +22,6 @@ userRoute.get("/user-info", isAuthenticated, getUserInfoController);
 userRoute.put("/update-profile", isAuthenticated, updateProfile);
 userRoute.put("/update-user-role", isAuthenticated, isAdmin, updateUserRole);
 userRoute.delete("/delete-user/:id", isAuthenticated, isAdmin, deleteUser);
+userRoute.post("/refresh-token", refreshToken);
 
 export default userRoute;

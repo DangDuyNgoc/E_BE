@@ -16,7 +16,7 @@ const bannerSchema = new mongoose.Schema(
   },
   {
     timestamps: true,
-  }
+  },
 );
 
 const bannerModel = mongoose.model("banner", bannerSchema);

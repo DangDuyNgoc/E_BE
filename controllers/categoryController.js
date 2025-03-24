@@ -59,7 +59,7 @@ export const updateCategory = async (req, res) => {
     const category = await categoriesModel.findByIdAndUpdate(
       id,
       { name },
-      { new: true }
+      { new: true },
     );
 
     res.status(200).send({
@@ -110,7 +110,7 @@ export const getAllCategory = async (req, res) => {
     return res.status(200).send({
       success: true,
       message: "Category Found Successfully",
-      category,
+      category: category,
     });
   } catch (error) {
     console.error(error);
@@ -156,7 +156,7 @@ export const deleteAllCategory = async (req, res) => {
     return res.status(200).send({
       success: true,
       message: "Deleted All Categories Successfully",
-      deleteCount: category.deleteCount,
+      deleteCount: category.deletedCount,
     });
   } catch (error) {
     console.error(error);

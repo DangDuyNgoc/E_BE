@@ -23,16 +23,14 @@ const productRoute = express.Router();
 
 productRoute.get(
   "/all-products",
-  isAuthenticated,
-  isAdmin,
-  getAllProductController
+  getAllProductController,
 );
+
 productRoute.get(
   "/get-product/:id",
-  isAuthenticated,
-  isAdmin,
-  getOneProductController
+  getOneProductController,
 );
+
 productRoute.post(
   "/add-product",
   isAuthenticated,
@@ -41,7 +39,7 @@ productRoute.post(
   validateProduct,
   validateFileExistence,
   handleValidationErrors,
-  addProductController
+  addProductController,
 );
 productRoute.put(
   "/update-product/:id",
@@ -51,18 +49,18 @@ productRoute.put(
   saveImage.single("imageUrl"),
   validateProduct,
   handleValidationErrors,
-  updateProductController
+  updateProductController,
 );
 productRoute.delete(
   "/delete-product/:id",
   isAuthenticated,
   isAdmin,
-  deleteProductController
+  deleteProductController,
 );
 productRoute.post(
   "/search-products",
   validateSearchProduct,
-  searchProductController
+  searchProductController,
 );
 
 export default productRoute;

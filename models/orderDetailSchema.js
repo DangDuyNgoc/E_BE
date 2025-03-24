@@ -27,7 +27,7 @@ const orderDetailSchema = new mongoose.Schema(
       type: Number,
     },
   },
-  { timestamps: true }
+  { timestamps: true },
 );
 
 const orderDetailModel = mongoose.model("order_details", orderDetailSchema);

@@ -53,7 +53,7 @@ export const updateBanner = async (req, res) => {
       if (existingBanner.image && existingBanner.image.public_id) {
         await cloudinary.v2.uploader.destroy(
           image,
-          existingBanner.image.public_id
+          existingBanner.image.public_id,
         );
       }
 
@@ -74,7 +74,7 @@ export const updateBanner = async (req, res) => {
         title,
         image: newImage,
       },
-      { new: true }
+      { new: true },
     );
 
     res.status(200).send({

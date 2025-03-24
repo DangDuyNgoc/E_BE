@@ -40,7 +40,7 @@ export const addToCart = async (req, res) => {
     }
 
     const existingCart = cart.items.find(
-      (item) => item.product.toString() === productId && item.color === color
+      (item) => item.product.toString() === productId && item.color === color,
     );
 
     if (existingCart) {
@@ -65,11 +65,11 @@ export const addToCart = async (req, res) => {
 
     cart.totalPrice = cart.items.reduce(
       (sum, item) => sum + item.quantity * item.price,
-      0
+      0,
     );
     cart.totalDiscountedPrice = cart.items.reduce(
       (sum, item) => sum + item.quantity * (item.discountedPrice || item.price),
-      0
+      0,
     );
 
     await cart.save();
@@ -138,7 +138,7 @@ export const decreaseQuantity = async (req, res) => {
     }
 
     const indexItem = cart.items.findIndex(
-      (item) => item.product.toString() === productId && item.color === color
+      (item) => item.product.toString() === productId && item.color === color,
     );
 
     if (indexItem === -1) {
@@ -156,11 +156,11 @@ export const decreaseQuantity = async (req, res) => {
 
     cart.totalPrice = cart.items.reduce(
       (sum, item) => sum + item.quantity * item.price,
-      0
+      0,
     );
     cart.totalDiscountedPrice = cart.items.reduce(
       (sum, item) => sum + item.quantity * (item.discountedPrice || item.price),
-      0
+      0,
     );
 
     await cart.save();
@@ -195,7 +195,7 @@ export const deleteCart = async (req, res) => {
     console.log("Cart before deletion:", cart.items);
 
     const newItems = cart.items.filter(
-      (item) => item.product.toString() !== productId
+      (item) => item.product.toString() !== productId,
     );
 
     console.log("Cart after deletion:", newItems);
@@ -220,12 +220,12 @@ export const deleteCart = async (req, res) => {
     if (cart.items.length > 0) {
       cart.totalPrice = cart.items.reduce(
         (sum, item) => sum + item.quantity * item.price,
-        0
+        0,
       );
       cart.totalDiscountedPrice = cart.items.reduce(
         (sum, item) =>
           sum + item.quantity * (item.discountedPrice || item.price),
-        0
+        0,
       );
     }
 

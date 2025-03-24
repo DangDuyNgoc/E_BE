@@ -48,7 +48,7 @@ export const validateSearchProduct = [
   body().custom((value, { req }) => {
     const allowedFields = ["name", "categories", "minPrice", "maxPrice"];
     const hasAtLeastOneField = allowedFields.some((field) =>
-      Object.keys(req.body).includes(field)
+      Object.keys(req.body).includes(field),
     );
 
     if (!hasAtLeastOneField) {

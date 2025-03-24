@@ -4,10 +4,11 @@ import path from "path";
 import { fileURLToPath } from "url";
 
 import { sendMail } from "../config/sendMail.js";
-import { sendToken } from "./../config/jwt.js";
+import { accessTokenOptions, refreshTokenOptions, sendToken } from "./../config/jwt.js";
 import { hashPassword, matchPassword } from "../helpers/authHelper.js";
 import userModel from "../models/userModel.js";
 import { getUserById } from "../services/userService.js";
+import { signAccessToken, signRefreshToken } from "../middlewares/authMiddleware.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -286,7 +287,7 @@ export const updateUserRole = async (req, res) => {
     const updatedUser = await userModel.findByIdAndUpdate(
       userId,
       { role },
-      { new: true }
+      { new: true },
     );
 
     if (!updatedUser) {
@@ -339,6 +340,61 @@ export const deleteUser = async (req, res) => {
   }
 };
 
+// refresh token 
+export const refreshToken = async (req, res) => {
+  try {
+    const { refresh_token } = req.cookies;
+
+    if (!refresh_token) {
+      return res.status(401).send({
+        success: false,
+        message: "Refresh token is missing",
+      });
+    }
+
+    // verify refresh token
+    const decoded = jwt.verify(refresh_token, process.env.REFRESH_TOKEN);
+
+    if (!decoded) {
+      return res.status(403).send({
+        success: false,
+        message: "Invalid refresh token",
+      });
+    }
+
+    // find user by ID
+    const user = await userModel.findById(decoded.id);
+    if (!user) {
+      return res.status(404).send({
+        success: false,
+        message: "User not found",
+      });
+    }
+
+    // generate new access token & refresh token
+    const newAccessToken = signAccessToken(user._id);
+    const newRefreshToken = signRefreshToken(user._id);
+
+    // set new token in cookies
+    res.cookie("access_token", newAccessToken, accessTokenOptions);
+    res.cookie("refresh_token", newRefreshToken, refreshTokenOptions);
+
+    return res.status(200).send({
+      success: true,
+      accessToken: newAccessToken,
+      refreshToken: newRefreshToken,
+      message: "Token refreshed successfully",
+    });
+
+  } catch (error) {
+    console.error(error);
+    return res.status(500).send({
+      success: false,
+      message: "Failed to update user role",
+    });
+  }
+}
+
 const createToken = async (user) => {
   try {
     const activationCode = Math.floor(1000 + Math.random() * 9000).toString();
@@ -348,7 +404,7 @@ const createToken = async (user) => {
         activationCode,
       },
       process.env.JWT_SECRET,
-      { expiresIn: "1h" }
+      { expiresIn: "1h" },
     );
     return { token, activationCode };
   } catch (error) {

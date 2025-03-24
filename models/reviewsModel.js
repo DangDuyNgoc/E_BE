@@ -4,7 +4,7 @@ const reviewsSchema = new mongoose.Schema(
   {
     comments: {
       type: String,
-      required: true, 
+      required: true,
     },
     product: {
       type: mongoose.Schema.Types.ObjectId,
@@ -22,7 +22,7 @@ const reviewsSchema = new mongoose.Schema(
       },
     ],
   },
-  { timestamps: true }
+  { timestamps: true },
 );
 
 const reviewModel = mongoose.model("reviews", reviewsSchema);

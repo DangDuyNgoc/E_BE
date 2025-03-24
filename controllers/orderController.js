@@ -5,9 +5,8 @@ import orderDetailModel from "./../models/orderDetailSchema.js";
 
 const stripe = new Stripe(
   process.env.STRIPE_SECRET_KEY ||
-    "sk_test_51PiS7iDDtMfu9MHZQXprg6WPZzY3xm3almQOoZxiJChyPMq6om6rXvDn1oH7tqmYw0LrmB8z6dCqv33B9TIhWcQA00UufwYzk1"
+    "sk_test_51PiS7iDDtMfu9MHZQXprg6WPZzY3xm3almQOoZxiJChyPMq6om6rXvDn1oH7tqmYw0LrmB8z6dCqv33B9TIhWcQA00UufwYzk1",
 );
-
 
 export const placeOrder = async (req, res) => {
   try {
@@ -43,7 +42,7 @@ export const placeOrder = async (req, res) => {
         color: item.color,
         price: item.price,
         discountedPrice: item.discountedPrice,
-      }))
+      })),
     );
 
     // update order with list of order details

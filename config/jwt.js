@@ -5,16 +5,16 @@ import {
 
 const accessTokenExpires = parseInt(
   process.env.ACCESS_TOKEN_EXPIRE || "300",
-  10
+  10,
 );
 
 const refreshTokenExpires = parseInt(
   process.env.REFRESH_TOKEN_EXPIRE || "1200",
-  10
+  10,
 );
 
 export const accessTokenOptions = {
-  expires: new Date(Date.now() + accessTokenExpires * 60 * 60 * 1000), 
+  expires: new Date(Date.now() + accessTokenExpires * 60 * 60 * 1000),
   //Cookie sẽ hết hạn sau số giờ được xác định bởi accessTokenExpires.
   maxAge: accessTokenExpires * 60 * 60 * 1000,
   //Xác định khoảng thời gian sống của cookie (tính bằng mili-giây).

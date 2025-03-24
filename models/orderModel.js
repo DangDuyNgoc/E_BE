@@ -44,7 +44,7 @@ const orderSchema = new mongoose.Schema(
       },
     ],
   },
-  { timestamps: true }
+  { timestamps: true },
 );
 
 const orderModel = mongoose.model("orders", orderSchema);
