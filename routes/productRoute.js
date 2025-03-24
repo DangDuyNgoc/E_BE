@@ -29,8 +29,6 @@ productRoute.get(
 );
 productRoute.get(
   "/get-product/:id",
-  isAuthenticated,
-  isAdmin,
   getOneProductController
 );
 productRoute.post(
