@@ -28,7 +28,7 @@ export const validateProduct = [
     .optional()
     .isURL()
     .withMessage("Image URL must be a valid URL"),
-  body("imageUrl").custom((value, { req }) => {
+  body("imageUrl").optional().custom((value, { req }) => {
     if (!value && !req.file) {
       throw new Error("Either image URL or an image file is required");
     }
