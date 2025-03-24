@@ -23,8 +23,6 @@ const productRoute = express.Router();
 
 productRoute.get(
   "/all-products",
-  isAuthenticated,
-  isAdmin,
   getAllProductController
 );
 productRoute.get(
