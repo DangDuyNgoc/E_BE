@@ -102,7 +102,7 @@ export const searchProductController = async (req, res) => {
         .status(400)
         .json({ success: false, message: "Search parameters are required" });
     }
-    const results = await searchProductService(objData);
+    const results = await searchProductService(objData.query);
     return res.status(200).json({
       success: true,
       message: "Search products successful",
